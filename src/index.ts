@@ -1,7 +1,7 @@
-import {ShirtshopApi} from './application';
-import {ApplicationConfig} from '@loopback/core';
+import { ShirtshopApi } from './application';
+import { ApplicationConfig } from '@loopback/core';
 
-export {ShirtshopApi};
+export { ShirtshopApi };
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new ShirtshopApi(options);
