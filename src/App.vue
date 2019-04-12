@@ -2,32 +2,32 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
       </v-toolbar-title>
+        <v-img
+          src="/tshirtshop.png"
+          max-width="190px"
+        ></v-img>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
+      <toolbar-login></toolbar-login>
     </v-toolbar>
-
     <v-content>
-      <HelloWorld/>
+      <the-products></the-products>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import ToolbarLogin from './components/ToolbarLogin';
+import TheProducts from './components/TheProducts';
 
 export default {
   name: 'App',
+  created() {
+    this.$store.dispatch('getProducts');
+  },
   components: {
-    HelloWorld
+    ToolbarLogin,
+    TheProducts
   },
   data () {
     return {
