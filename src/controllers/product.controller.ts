@@ -6,15 +6,10 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
   param,
   get,
   getFilterSchemaFor,
   getWhereSchemaFor,
-  patch,
-  put,
-  del,
-  requestBody,
 } from '@loopback/rest';
 import { product } from '../models';
 import { ProductRepository } from '../repositories';
@@ -24,18 +19,6 @@ export class ProductController {
     @repository(ProductRepository)
     public productRepository: ProductRepository,
   ) { }
-
-  @post('/products', {
-    responses: {
-      '200': {
-        description: 'Product model instance',
-        content: { 'application/json': { schema: { 'x-ts-type': product } } },
-      },
-    },
-  })
-  async create(@requestBody() product: product): Promise<product> {
-    return await this.productRepository.create(product);
-  }
 
   @get('/products/count', {
     responses: {
@@ -69,21 +52,6 @@ export class ProductController {
     return await this.productRepository.find(filter);
   }
 
-  @patch('/products', {
-    responses: {
-      '200': {
-        description: 'Product PATCH success count',
-        content: { 'application/json': { schema: CountSchema } },
-      },
-    },
-  })
-  async updateAll(
-    @requestBody() product: product,
-    @param.query.object('where', getWhereSchemaFor(product)) where?: Where,
-  ): Promise<Count> {
-    return await this.productRepository.updateAll(product, where);
-  }
-
   @get('/products/{id}', {
     responses: {
       '200': {
@@ -96,42 +64,19 @@ export class ProductController {
     return await this.productRepository.findById(id);
   }
 
-  @patch('/products/{id}', {
+  @get('products/category/{id}', {
     responses: {
-      '204': {
-        description: 'Product PATCH success',
+      '200': {
+        description: 'Product model instance',
+        content: { 'application/json': { schema: { 'x-ts-type': product } } },
       },
     },
   })
-  async updateById(
-    @param.path.number('id') id: number,
-    @requestBody() product: product,
-  ): Promise<void> {
-    await this.productRepository.updateById(id, product);
-  }
-
-  @put('/products/{id}', {
-    responses: {
-      '204': {
-        description: 'Product PUT success',
-      },
-    },
-  })
-  async replaceById(
-    @param.path.number('id') id: number,
-    @requestBody() product: product,
-  ): Promise<void> {
-    await this.productRepository.replaceById(id, product);
-  }
-
-  @del('/products/{id}', {
-    responses: {
-      '204': {
-        description: 'Product DELETE success',
-      },
-    },
-  })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
-    await this.productRepository.deleteById(id);
+  async findByCategory(@param.path.number('id') id: number,
+  ): Promise<any> {
+    return await this.productRepository.execute(
+      'CALL catalog_get_category_products(?)',
+      [id]
+    );
   }
 }
