@@ -13,13 +13,20 @@
           :filterVar="departments"
         >
         </filter-type>
+        <filter-type
+          title="Categories"
+          :filterList="categories"
+          :filterSelectedVar="selectedCategory"
+          
+        >
+        </filter-type>
       </v-navigation-drawer>
     </v-card>
   </v-flex>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 import FilterType from './FilterType';
 
 export default {
@@ -28,16 +35,14 @@ export default {
   },
   computed: {
     ...mapState({
-      departments: 'departments',
-    })
+      departments: 'departments'
+    }),
+    ...mapGetters([
+      'categories'
+    ])
   },
   data () {
     return {};
-  },
-  methods: {
-    ...mapMutations([
-      'changeFilter'
-    ])
   }
 }
 </script>

@@ -11,6 +11,16 @@ export default new Vuex.Store({
     loggedIn: false,
     products: [],
     departments: [],
+    selectedDepartment: -1,
+    selectedCategory: -1
+  },
+  getters: {
+    categories: (state) => {
+      if (state.selectedDepartment === -1) {
+        return [];
+      }
+      return state.departments[state.selectedDepartment].categories
+    }
   },
   mutations: {
     toggleLoggedIn(state) {
@@ -45,29 +55,15 @@ export default new Vuex.Store({
       );
 
       state.departments = depts;
-      //let filters = {
-      //  departments,
-      //  categories
-      //}
-      //filters['departments'] = {depts, activeFilter: 0};
-      //filters['categories'] = {categories, activeFilter: 0};
-
-      //state.filters = filters;
     },
 
-    //changeFilter(state, filterName, itemID) {
-    //  state.filters[filterName] = itemID;
-    //  let products = JSON.parse(localStorage.getItem('products'));
-    //  if (itemID === 0) {
-    //    // fetch from local storage and return
-    //    state.products = products;
-    //    return;
-    //  }
+    selectDepartment(state, deptIndex) {
+      state.selectedDepartment = deptIndex;
+    },
 
-    //  state.products = products.filter(
-    //    product => product.display === deptID ? true : false
-    //  );
-    //}
+    selectCategory(state, categoryIndex) {
+      state.selectedCategory = categoryIndex;
+    }
   },
   actions: {
     getProducts({commit}) {
