@@ -10,14 +10,14 @@
       >
         <filter-type
           title="Departments"
-          :filterVar="departments"
+          :filterList="departments"
+          mutation="selectDepartment"
         >
         </filter-type>
         <filter-type
           title="Categories"
           :filterList="categories"
-          :filterSelectedVar="selectedCategory"
-          
+          mutation="selectCategory"
         >
         </filter-type>
       </v-navigation-drawer>
