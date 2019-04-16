@@ -6,7 +6,6 @@ import {
   param,
   get,
   getFilterSchemaFor,
-  requestBody,
 } from '@loopback/rest';
 import { department } from '../models';
 import { DepartmentRepository } from '../repositories';

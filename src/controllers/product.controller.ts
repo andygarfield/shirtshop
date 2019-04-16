@@ -55,7 +55,7 @@ export class ProductController {
   @get('/products/{id}', {
     responses: {
       '200': {
-        description: 'Product model instance',
+        description: 'A product object which matches the id',
         content: { 'application/json': { schema: { 'x-ts-type': product } } },
       },
     },
@@ -67,8 +67,12 @@ export class ProductController {
   @get('products/category/{id}', {
     responses: {
       '200': {
-        description: 'Product model instance',
-        content: { 'application/json': { schema: { 'x-ts-type': product } } },
+        description: 'Array of products which match a category id',
+        content: {
+          'application/json': {
+            schema: { type: 'array', items: { 'x-ts-type': product } },
+          },
+        },
       },
     },
   })
