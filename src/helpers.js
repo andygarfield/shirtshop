@@ -5,9 +5,4 @@ export function apiGet(commitFunc, endpoint, mutation) {
     .catch(error => console.log(error));
 }
 
-export function mapFromObjArray(array, usingKey) {
-  let m = new Map();
-  array.forEach(item => m.set(item[usingKey], item))
-  
-  return m;
-}
+export function createFilter(items) {return {items, selectedIndex: -1}}

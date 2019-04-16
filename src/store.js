@@ -1,26 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { mapFromObjArray, apiGet } from './helpers';
+import { createFilter, apiGet } from './helpers';
 import { stat } from 'fs';
 
 Vue.use(Vuex)
-
 
 export default new Vuex.Store({
   state: {
     loggedIn: false,
     products: [],
-    departments: [],
-    selectedDepartment: -1,
-    selectedCategory: -1
-  },
-  getters: {
-    categories: (state) => {
-      if (state.selectedDepartment === -1) {
-        return [];
-      }
-      return state.departments[state.selectedDepartment].categories
-    }
+    departments: createFilter([]),
+    categories: createFilter([])
   },
   mutations: {
     toggleLoggedIn(state) {
@@ -54,15 +44,20 @@ export default new Vuex.Store({
         c => depts[deptMap[c.department_id]].categories.push(c)
       );
 
-      state.departments = depts;
+      state.departments = createFilter(depts);
     },
 
     selectDepartment(state, deptIndex) {
-      state.selectedDepartment = deptIndex;
+      state.departments.selectedIndex = deptIndex;
+      if (deptIndex === -1) {
+        state.categories = createFilter([])
+      } else {
+        state.categories = createFilter(state.departments.items[deptIndex].categories);
+      }
     },
 
     selectCategory(state, categoryIndex) {
-      state.selectedCategory = categoryIndex;
+      state.categories.selectedIndex = categoryIndex;
     }
   },
   actions: {

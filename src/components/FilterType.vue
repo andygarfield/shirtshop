@@ -1,9 +1,9 @@
 <template>
-  <span v-if="filterList.length != 0"> 
+  <span v-if="filter.items.length != 0"> 
     <v-card-text class="title filter-header">{{ title }}</v-card-text>
     <v-list dense>
       <v-list-tile
-        v-for="(item, index) in filterList"
+        v-for="(item, index) in filter.items"
         :key="index"
       >
         <v-list-tile-content>
@@ -11,8 +11,8 @@
             block
             flat
             :alt="item.description"
-            :class="{ info: index === selected }"
-            @click="index === selected ? select(-1) : select(index)"
+            :class="{ info: index === filter.selectedIndex }"
+            @click="index === filter.selectedIndex ? select(-1) : select(index)"
           >
             {{ item.name }}
           </v-btn>
@@ -25,8 +25,6 @@
 <script>
 import { mapState } from 'vuex';
 
-Vue.forceUpdate();
-
 function initialState() {
   return {
       selected: -1
@@ -34,17 +32,13 @@ function initialState() {
 }
 
 export default {
-  data: () => ({
-    selected: -1
-  }),
   props: [
     'title',
-    'filterList',
+    'filter',
     'mutation'
   ], 
   methods: {
     select(index) {
-      this.selected = index;
       this.$store.commit(this.mutation, index);
     }
   }

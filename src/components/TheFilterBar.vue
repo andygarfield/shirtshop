@@ -10,13 +10,13 @@
       >
         <filter-type
           title="Departments"
-          :filterList="departments"
+          :filter="departments"
           mutation="selectDepartment"
         >
         </filter-type>
         <filter-type
           title="Categories"
-          :filterList="categories"
+          :filter="categories"
           mutation="selectCategory"
         >
         </filter-type>
@@ -35,11 +35,9 @@ export default {
   },
   computed: {
     ...mapState({
-      departments: 'departments'
-    }),
-    ...mapGetters([
-      'categories'
-    ])
+      departments: 'departments',
+      categories: 'categories'
+    })
   },
   data () {
     return {};
