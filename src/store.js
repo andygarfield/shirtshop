@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { fetchAndParse, createFilter, apiGet } from './helpers';
+import { fetchOne, fetchMultiple, createFilter, apiGet } from './helpers';
 
 Vue.use(Vuex)
 
@@ -86,8 +86,8 @@ export default new Vuex.Store({
     async getFilters({commit}) {
       // define a filter and parse the json
       let reqs = [
-        fetchAndParse('/departments'),
-        fetchAndParse('/categories')
+        fetchOne('/departments'),
+        fetchOne('/categories')
       ];
 
       // wait for all requests to get back and then send data to mutation
@@ -103,12 +103,13 @@ export default new Vuex.Store({
         return;
       }
 
-      let categoryPromises = state.departments.items[deptID]
+      let categories = state.departments.items[deptID]
         .categories.map(
-          c => fetchAndParse(`/products/category/${c.category_id}`)
+          c => `/products/category/${c.category_id}`
         );
       
-      let responses = await Promise.all(categoryPromises);
+      let responses = await fetchMultiple(categories);
+
       let filteredIDs = [];
       responses.forEach(r => {
         filteredIDs = filteredIDs.concat(r[0].map(i => i.product_id));
@@ -126,7 +127,7 @@ export default new Vuex.Store({
 
       let queryID = state.categories.items[state.categories.selectedIndex].category_id;
 
-      let res = await fetchAndParse(
+      let res = await fetchOne(
         `/products/category/${queryID}`
       );
       console.log(res);
