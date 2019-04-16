@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { createFilter, apiGet } from './helpers';
-import { stat } from 'fs';
+import { fetchAndParse, createFilter, apiGet } from './helpers';
 
 Vue.use(Vuex)
 
@@ -25,6 +24,22 @@ export default new Vuex.Store({
 
       localStorage.setItem('products', JSON.stringify(products));
       state.products = products;
+    },
+
+    filterProducts(state, ids) {
+      let products = JSON.parse(localStorage.getItem('products'));
+
+      state.products = products.filter(p => {
+        if (ids.includes(p.product_id)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    },
+
+    removeFilter(state) {
+      state.products = JSON.parse(localStorage.getItem('products'));
     },
 
     saveDepartments(state, responses) {
@@ -52,7 +67,9 @@ export default new Vuex.Store({
       if (deptIndex === -1) {
         state.categories = createFilter([])
       } else {
-        state.categories = createFilter(state.departments.items[deptIndex].categories);
+        state.categories = createFilter(
+          state.departments.items[deptIndex].categories
+        );
       }
     },
 
@@ -65,20 +82,55 @@ export default new Vuex.Store({
       // may collapse the function if there isn't a need for multiple calls
       apiGet(commit, '/products', 'saveProducts');
     },
-    getFilters({commit}) {
-      let parseJson = (endpoint) => fetch(endpoint).then(res => res.json())
 
+    async getFilters({commit}) {
       // define a filter and parse the json
-      let deptsPromise = parseJson('/departments');
-      let categoriesPromise = parseJson('/categories');
+      let reqs = [
+        fetchAndParse('/departments'),
+        fetchAndParse('/categories')
+      ];
 
       // wait for all requests to get back and then send data to mutation
-      Promise.all([
-        deptsPromise,
-        categoriesPromise
-      ])
-        .then(responses => commit('saveDepartments', responses))
-        .catch(error => console.log(error))
+      let responses = await Promise.all(reqs);
+      commit('saveDepartments', responses);
+    },
+
+    async getProductsByDepartment({state, commit}, deptID) {
+      commit('selectDepartment', deptID);
+
+      if (deptID === -1) {
+        commit('removeFilter');
+        return;
+      }
+
+      let categoryPromises = state.departments.items[deptID]
+        .categories.map(
+          c => fetchAndParse(`/products/category/${c.category_id}`)
+        );
+      
+      let responses = await Promise.all(categoryPromises);
+      let filteredIDs = [];
+      responses.forEach(r => {
+        filteredIDs = filteredIDs.concat(r[0].map(i => i.product_id));
+      });
+      commit('filterProducts', filteredIDs);
+    },
+
+    async getProductsByCategory({state, commit, dispatch}, categoryID) {
+      commit('selectCategory', categoryID);
+
+      if (categoryID === -1) {
+        dispatch('getProductsByDepartment', state.departments.selectedIndex)
+        return;
+      }
+
+      let queryID = state.categories.items[state.categories.selectedIndex].category_id;
+
+      let res = await fetchAndParse(
+        `/products/category/${queryID}`
+      );
+      console.log(res);
+      commit('filterProducts', res[0].map(i => i.product_id));
     }
   }
 })

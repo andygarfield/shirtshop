@@ -11,13 +11,13 @@
         <filter-type
           title="Departments"
           :filter="departments"
-          mutation="selectDepartment"
+          action="getProductsByDepartment"
         >
         </filter-type>
         <filter-type
           title="Categories"
           :filter="categories"
-          mutation="selectCategory"
+          action="getProductsByCategory"
         >
         </filter-type>
       </v-navigation-drawer>

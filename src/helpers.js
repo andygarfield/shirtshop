@@ -5,4 +5,15 @@ export function apiGet(commitFunc, endpoint, mutation) {
     .catch(error => console.log(error));
 }
 
-export function createFilter(items) {return {items, selectedIndex: -1}}
+export const fetchAndParse = (endpoint) => {
+  // check local storage to see if the result is cached
+  let cachedData = localStorage.getItem(endpoint)
+  if (cachedData) {
+    return Promise.resolve(cachedData);
+  }
+
+  // return the json promise if not
+  return fetch(endpoint).then(res => res.json());
+}
+
+export const createFilter = (items) => ({items, selectedIndex: -1});

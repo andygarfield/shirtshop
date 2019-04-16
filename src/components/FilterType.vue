@@ -35,11 +35,11 @@ export default {
   props: [
     'title',
     'filter',
-    'mutation'
+    'action'
   ], 
   methods: {
     select(index) {
-      this.$store.commit(this.mutation, index);
+      this.$store.dispatch(this.action, index);
     }
   }
 }
