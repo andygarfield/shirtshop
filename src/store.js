@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { fetchOne, fetchMultiple, createFilter, apiGet } from './helpers';
+import { fetchOne, fetchMultiple, createFilter } from './helpers';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
@@ -78,9 +78,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getProducts({commit}) {
-      // may collapse the function if there isn't a need for multiple calls
-      apiGet(commit, '/products', 'saveProducts');
+    async getProducts({commit}) {
+      commit('saveProducts', await fetchOne('/products'));
     },
 
     async getFilters({commit}) {
@@ -130,7 +129,6 @@ export default new Vuex.Store({
       let res = await fetchOne(
         `/products/category/${queryID}`
       );
-      console.log(res);
       commit('filterProducts', res[0].map(i => i.product_id));
     }
   }

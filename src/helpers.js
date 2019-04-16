@@ -1,10 +1,3 @@
-export function apiGet(commitFunc, endpoint, mutation) {
-  fetch(endpoint)
-    .then(response => response.json())
-    .then(j => commitFunc(mutation, j))
-    .catch(error => console.log(error));
-}
-
 export async function fetchOne(endpoint) {
   // check local storage to see if the result is cached
   let cachedData = localStorage.getItem(endpoint)
