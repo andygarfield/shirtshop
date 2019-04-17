@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs3>
+  <v-flex hidden-sm-and-down md3>
     <v-card
       class="d-inline-block elevation-3"
     >

@@ -1,8 +1,14 @@
 <template>
-  <v-flex xs9>
+  <v-flex xs12 md9 class="text-xs-center">
+    <v-pagination
+      v-if="pageCount > 1"
+      v-model="page"
+      :length="pageCount"
+      :total-visible="7"
+    ></v-pagination>
     <v-layout wrap>
       <v-flex
-        xs4 class="pa-4"
+        xs12 sm6 md4 class="pa-4"
         v-for="p in productsInView"
         :key="p.product_id"
       >
@@ -16,15 +22,6 @@
             <v-img
               :src="p.image"
             >
-              <v-expand-transition>
-                <div
-                  v-if="hover"
-                  class="d-flex transition-fast-in-fast-out shirt-blue darken-2 v-card--reveal display-3 white--text"
-                  style="height: 100%;"
-                >
-                  {{ p.discounted_price != 0 ? p.discounted_price : p.price | toCurrency }}
-                </div>
-              </v-expand-transition>
             </v-img>
             <v-card-text
               class="pt-4"
@@ -44,18 +41,20 @@
                   <s>{{ p.price | toCurrency }}</s>
                 </span>
               </p>
-              <!-- <div class="font-weight-light title mb-2"> -->
             </v-card-text>
+            <v-expand-transition>
+              <div
+                v-if="hover"
+                class="d-flex transition-fast-in-fast-out shirt-blue darken-2 v-card--reveal display-3 white--text"
+                style="height: 100%;"
+              >
+                {{ p.discounted_price != 0 ? p.discounted_price : p.price | toCurrency }}
+              </div>
+            </v-expand-transition>
           </v-card>
         </v-hover>
       </v-flex>
     </v-layout>
-    <v-pagination
-      v-if="pageCount > 1"
-      v-model="page"
-      :length="pageCount"
-      :total-visible="7"
-    ></v-pagination>
   </v-flex>
 </template>
 

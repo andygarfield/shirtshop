@@ -40,7 +40,6 @@ export default new Vuex.Store({
     },
 
     setPage(state, page) {
-      window.scrollTo(0, 0);
       state.page = page;
     },
 
