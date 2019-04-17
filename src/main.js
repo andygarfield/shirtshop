@@ -10,7 +10,6 @@ Vue.use(Vuetify)
 
 Vue.config.productionTip = false
 
-
 new Vue({
   store,
   router,

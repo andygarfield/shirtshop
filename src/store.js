@@ -4,12 +4,25 @@ import { fetchOne, fetchMultiple, createFilter } from './helpers';
 
 Vue.use(Vuex);
 
+const ItemsPerPage = 12;
+
 export default new Vuex.Store({
   state: {
     loggedIn: false,
     products: [],
+    page: 1,
     departments: createFilter([]),
     categories: createFilter([])
+  },
+  getters: {
+    productsInView(state) {
+      let start = (state.page - 1) * ItemsPerPage;
+      let end = state.page * ItemsPerPage;
+      return state.products.slice(start, end);
+    },
+    pageCount(state) {
+      return Math.ceil(state.products.length / ItemsPerPage);
+    }
   },
   mutations: {
     toggleLoggedIn(state) {
@@ -24,6 +37,11 @@ export default new Vuex.Store({
 
       localStorage.setItem('products', JSON.stringify(products));
       state.products = products;
+    },
+
+    setPage(state, page) {
+      window.scrollTo(0, 0);
+      state.page = page;
     },
 
     filterProducts(state, ids) {
@@ -63,6 +81,7 @@ export default new Vuex.Store({
     },
 
     selectDepartment(state, deptIndex) {
+      state.page = 1;
       state.departments.selectedIndex = deptIndex;
       if (deptIndex === -1) {
         state.categories = createFilter([])
@@ -74,6 +93,7 @@ export default new Vuex.Store({
     },
 
     selectCategory(state, categoryIndex) {
+      state.page = 1;
       state.categories.selectedIndex = categoryIndex;
     }
   },

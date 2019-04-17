@@ -3,7 +3,7 @@
     <v-layout wrap>
       <v-flex
         xs4 class="pa-4"
-        v-for="p in products"
+        v-for="p in productsInView"
         :key="p.product_id"
       >
         <v-hover>
@@ -50,17 +50,35 @@
         </v-hover>
       </v-flex>
     </v-layout>
+    <v-pagination
+      v-if="pageCount > 1"
+      v-model="page"
+      :length="pageCount"
+      :total-visible="7"
+    ></v-pagination>
   </v-flex>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   computed: {
     ...mapState({
       products: 'products'
-    })
+    }),
+    ...mapGetters([
+      'productsInView',
+      'pageCount'
+    ]),
+    page: {
+      set(page) {
+        this.$store.commit('setPage', page);
+      },
+      get() {
+        return this.$store.state.page;
+      }
+    }
   },
   filters: {
     toCurrency: function(value) {
