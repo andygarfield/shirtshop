@@ -33,6 +33,9 @@ export default {
   components: {
     FilterType
   },
+  data: () => ({
+    search: ''
+  }),
   computed: {
     ...mapState({
       departments: 'departments',

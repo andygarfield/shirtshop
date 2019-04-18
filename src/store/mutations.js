@@ -1,4 +1,4 @@
-import { createFilter } from '../helpers';
+import { createFilter, getProductsFromStorage, addPrefixToItems } from '../helpers';
 
 export default {
   toggleLoggedIn(state) {
@@ -6,13 +6,7 @@ export default {
   },
 
   saveProducts(state, res) {
-    let products = res.map(product => {
-      product.image = "/product_images/" + product.image;
-      return product;
-    })
-
-    localStorage.setItem('products', JSON.stringify(products));
-    state.products = products;
+    state.products = res;
   },
 
   setPage(state, page) {
@@ -20,8 +14,7 @@ export default {
   },
 
   filterProducts(state, ids) {
-    let products = JSON.parse(localStorage.getItem('products'));
-
+    let products = JSON.parse(sessionStorage.getItem('/products'));
     state.products = products.filter(p => {
       if (ids.includes(p.product_id)) {
         return true;
@@ -29,10 +22,6 @@ export default {
         return false;
       }
     });
-  },
-
-  removeFilter(state) {
-    state.products = JSON.parse(localStorage.getItem('products'));
   },
 
   saveDepartments(state, responses) {

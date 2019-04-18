@@ -20,7 +20,7 @@
             max-width="600"
           >
             <v-img
-              :src="p.image"
+              :src="'/product_images/' + p.image"
             >
             </v-img>
             <v-card-text
