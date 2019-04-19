@@ -1,9 +1,28 @@
 import { fetchOne, fetchMultiple } from '../helpers';
 
 export default {
+  // init runs a number of tasks on app initialization. It gets the products
+  // and filters and fills the product lookup.
+  async init({commit, dispatch}) {
+    await Promise.all([
+      dispatch('getProducts'),
+      dispatch('getFilters')
+    ])
+    commit('fillProductLookup');
+  },
+
   // getProducts fetches all the product data
   async getProducts({commit}) {
-    commit('saveProducts', await fetchOne('/products'));
+    commit('saveProducts', await fetchOne('/api/products'));
+  },
+
+  // getProduct gets one product and set
+  async getProduct({state, commit, dispatch}, productID) {
+    await dispatch('getProducts');
+    commit(
+      'setCurrentProduct',
+      state.products[state.productLookup[productID]]
+    );
   },
 
   // getFilters gets the department and category filters from the database.
@@ -11,8 +30,8 @@ export default {
   async getFilters({commit}) {
     // define a filter and parse the json
     let reqs = [
-      fetchOne('/departments'),
-      fetchOne('/categories')
+      fetchOne('/api/departments'),
+      fetchOne('/api/categories')
     ];
 
     // wait for all requests to get back and then send data to mutation
@@ -36,7 +55,7 @@ export default {
     // otherwise, fetch all the categories in the department
     let categories = state.departments.items[deptID]
       .categories.map(
-        c => `/products/category/${c.category_id}`
+        c => `/api/products/category/${c.category_id}`
       );
     
     let responses = await fetchMultiple(categories);
@@ -64,7 +83,7 @@ export default {
     let queryID = state.categories.items[state.categories.selectedIndex].category_id;
 
     let res = await fetchOne(
-      `/products/category/${queryID}`
+      `/api/products/category/${queryID}`
     );
     commit('filterProducts', res[0].map(i => i.product_id));
   }

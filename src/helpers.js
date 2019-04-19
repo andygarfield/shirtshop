@@ -8,7 +8,7 @@ export async function fetchOne(endpoint) {
   }
 
   // if not cached, fetch the the data and return a json promise
-  let res = fetch(endpoint).then(res => res.json()).then(j.map(mapFunc));
+  let res = await fetch(endpoint).then(res => res.json());
   sessionStorage.setItem(endpoint, JSON.stringify(res));
 
   return Promise.resolve(res);

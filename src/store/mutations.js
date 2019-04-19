@@ -1,4 +1,4 @@
-import { createFilter, getProductsFromStorage, addPrefixToItems } from '../helpers';
+import { createFilter, createProductGetter } from '../helpers';
 
 export default {
   toggleLoggedIn(state) {
@@ -14,7 +14,7 @@ export default {
   },
 
   filterProducts(state, ids) {
-    let products = JSON.parse(sessionStorage.getItem('/products'));
+    let products = JSON.parse(sessionStorage.getItem('/api/products'));
     state.products = products.filter(p => {
       if (ids.includes(p.product_id)) {
         return true;
@@ -22,6 +22,10 @@ export default {
         return false;
       }
     });
+  },
+
+  setCurrentProduct(state, product) {
+    state.currentProduct = product;
   },
 
   saveDepartments(state, responses) {
@@ -44,6 +48,7 @@ export default {
     state.departments = createFilter(depts);
   },
 
+
   selectDepartment(state, deptIndex) {
     state.page = 1;
     state.departments.selectedIndex = deptIndex;
@@ -59,5 +64,10 @@ export default {
   selectCategory(state, categoryIndex) {
     state.page = 1;
     state.categories.selectedIndex = categoryIndex;
+  },
+
+  // should only be run at app initialization
+  fillProductLookup(state) {
+    state.products.forEach((product, i) => state.productLookup[product.product_id] = i);
   }
 }

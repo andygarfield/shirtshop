@@ -20,6 +20,7 @@
           action="getProductsByCategory"
         >
         </filter-type>
+        <the-side-cart></the-side-cart>
       </v-navigation-drawer>
     </v-card>
   </v-flex>
@@ -28,10 +29,12 @@
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import FilterType from './FilterType';
+import TheSideCart from './TheSideCart';
 
 export default {
   components: {
-    FilterType
+    FilterType,
+    TheSideCart
   },
   data: () => ({
     search: ''
@@ -47,7 +50,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
