@@ -83,4 +83,19 @@ export class ProductController {
       [id]
     );
   }
+
+  @get('/products/attributes/{id}', {
+    responses: {
+      '200': {
+        description: 'A product object which matches the id',
+        content: { 'application/json': { schema: { 'x-ts-type': product } } },
+      },
+    },
+  })
+  async findAttributes(@param.path.number('id') id: number): Promise<any> {
+    return await this.productRepository.execute(
+      'CALL catalog_get_product_attributes(?)',
+      [id]
+    );
+  }
 }

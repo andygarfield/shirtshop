@@ -1,15 +1,14 @@
-import { ShirtshopApi } from './application';
+import { ExpressServer } from './server';
+import { Shirtshop } from './application';
 import { ApplicationConfig } from '@loopback/core';
 
-export { ShirtshopApi };
+export { Shirtshop };
 
 export async function main(options: ApplicationConfig = {}) {
-  const app = new ShirtshopApi(options);
-  await app.boot();
-  await app.start();
+  const server = new ExpressServer(options);
+  await server.boot();
+  await server.start();
+  console.log('server has started');
 
-  const url = app.restServer.url;
-  console.log(`Server is running at ${url}`);
-
-  return app;
+  return server;
 }
