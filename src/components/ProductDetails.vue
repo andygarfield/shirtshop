@@ -7,6 +7,18 @@
           <v-img>
           </v-img>
           <v-card-text>{{ this.$store.state.currentProduct.description }}</v-card-text>
+          <v-layout>
+            <attribute-selector
+              :attributes="currentSizes"         
+            >
+            </attribute-selector>
+          </v-layout>
+          <v-layout>
+            <attribute-selector
+              :attributes="currentColors"         
+            >
+            </attribute-selector>
+          </v-layout>
         </v-card>
       </v-flex>
     </v-layout>
@@ -14,16 +26,36 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+import AttributeSelector from './AttributeSelector';
+
 export default {
+  components: {
+    AttributeSelector
+  },
+  computed: {
+    productID() {return this.$route.params.id},
+    ...mapState({
+      currentSizes: 'currentSizes',
+      currentColors: 'currentColors'
+    })
+  },
   mounted() {
-    this.$store.dispatch('getProduct', this.$route.params.id)
+    this.getProduct(this.productID);
+    this.getProductAttributes(this.productID);
   },
   methods: {
     goBack () {
       window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/')
-    }
+    },
+    ...mapActions([
+      'getProduct',
+      'getProductAttributes'
+    ])
+  },
+  created() {
   }
 }
 </script>

@@ -36,10 +36,21 @@
       <v-expand-transition>
         <div
           v-if="hover"
-          class="d-flex transition-fast-in-fast-out shirt-blue darken-2 v-card--reveal display-3 white--text"
-          style="height: 100%;"
-        >
-          {{ product.discounted_price != 0 ? product.discounted_price : product.price | toCurrency }}
+          class="d-flex transition-fast-in-fast-out shirt-blue darken-2 v-card--reveal display-3"
+          >
+          <div>
+            <p class="headline font-weight-black white--text">
+              {{ product.name }}
+            </p>
+            <router-link class="router-button" :to="'/product/' + product.product_id">
+              <v-btn
+                outline
+                color="white"
+              >
+                View Details
+              </v-btn>
+            </router-link>
+          </div>
         </div>
       </v-expand-transition>
     </v-card>
@@ -78,8 +89,13 @@ export default {
     align-items: center;
     bottom: 0;
     justify-content: center;
-    opacity: .5;
+    background-color: rgba(6, 144, 199, 0.5);
     position: absolute;
+    height: 100%;
     width: 100%;
+  }
+
+  .router-button {
+    text-decoration: none;
   }
 </style>

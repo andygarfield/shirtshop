@@ -66,6 +66,14 @@ export default {
     state.categories.selectedIndex = categoryIndex;
   },
 
+  saveCurrentSizes(state, sizes) {
+    state.currentSizes = sizes;
+  },
+
+  saveCurrentColors(state, colors) {
+    state.currentColors = colors;
+  },
+
   // should only be run at app initialization
   fillProductLookup(state) {
     state.products.forEach((product, i) => state.productLookup[product.product_id] = i);

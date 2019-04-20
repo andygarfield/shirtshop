@@ -86,5 +86,25 @@ export default {
       `/api/products/category/${queryID}`
     );
     commit('filterProducts', res[0].map(i => i.product_id));
+  },
+
+  async getProductAttributes({commit}, productID) {
+    let attributes = await fetchOne(
+      `/api/products/attributes/${productID}`
+    );
+    attributes = attributes[0];
+
+    let sizes = [];
+    let colors = [];
+    attributes.forEach(attr => {
+      if (attr.attribute_name === 'Color') {
+        colors.push(attr);
+      } else if (attr.attribute_name === 'Size') {
+        sizes.push(attr);
+      }
+    });
+
+    commit('saveCurrentSizes', sizes);
+    commit('saveCurrentColors', colors);
   }
 }

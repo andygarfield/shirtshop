@@ -11,6 +11,10 @@ export default {
   cart: [],
   // a product selection
   currentProduct: {},
+  // the current product's sizes
+  currentSizes: [],
+  // the current product's colors
+  currentColors: [],
   // the page in the pagination
   page: 1,
   // the department filter
