@@ -5,7 +5,7 @@
   <v-card-text class="title filter-header">Cart</v-card-text>
   <v-card
     v-for="(item, index) in cart" 
-    :key="item.id"
+    :key="index"
     flat
     color="grey lighten-3"
     class="ma-3"

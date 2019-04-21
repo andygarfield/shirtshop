@@ -15,28 +15,35 @@ export default {
 
   pushToCart(state, data) {
     // check to see if the item already exists
-    let itemPos = state.cart.map(i=>i.id).indexOf(data[0])
-    let idExists = itemPos === -1 ? false : true;
+    let matchPositions = [];
+    state.cart.forEach((item, i) => {
+      if (item.id === data[0]) {
+        matchPositions.push(i);
+      }
+    })
 
-    if (idExists) {
-      // if it does, see if the other attrubutes match
-      let sizeSame = data[2] === state.cart[itemPos].size;
-      let colorSame = data[3] === state.cart[itemPos].color;
+    let foundMatch = false;
+    matchPositions.forEach(i => {
+      // loop through the matches and see if the the other attributes match
+      let sizeSame = data[2] === state.cart[i].size;
+      let colorSame = data[3] === state.cart[i].color;
       if (sizeSame && colorSame) {
         // if everything matches, increase the quantity
-        state.cart[itemPos].quantity++;
-        return
+        state.cart[i].quantity++;
+        foundMatch = true;
       }
-    }
+    })
 
     // with any condition, it's new, and we should add it to the cart
-    state.cart.push({
-      id: data[0],
-      name: data[1],
-      size: data[2],
-      color: data[3],
-      quantity: 1
-    });
+    if (!foundMatch) {
+      state.cart.push({
+        id: data[0],
+        name: data[1],
+        size: data[2],
+        color: data[3],
+        quantity: 1
+      });
+    }
   },
 
   removeFromCart(state, cartIndex) {
