@@ -20,6 +20,7 @@
     >
       <v-btn
         fab small color="white"
+        :ripple="false"
         v-for="a of attributes"
         :key="a.attribute_value_id"
         @click="selectAttribute(a.attribute_value_id, a.attribute_value)"

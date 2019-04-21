@@ -25,6 +25,15 @@ export async function fetchMultiple(endpoints) {
 // createFilter creates an unselected filter from an array of objects 
 export const createFilter = (items) => ({items, selectedIndex: -1});
 
+// copyObj copies an object
+export const copyObj = (obj) => JSON.parse(JSON.stringify(obj));
+
+export const removeArrayIndex = (arr, index) => {
+  return arr.filter((el, i) => {
+      return i != index;
+  });
+}
+
 export const colorMap = {
   White: "#fff",
   Black: "#000",

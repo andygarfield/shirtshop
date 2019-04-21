@@ -1,4 +1,4 @@
-import { createFilter, createProductGetter } from '../helpers';
+import { createFilter, removeArrayIndex } from '../helpers';
 
 export default {
   toggleLoggedIn(state) {
@@ -11,6 +11,36 @@ export default {
 
   setPage(state, page) {
     state.page = page;
+  },
+
+  pushToCart(state, data) {
+    // check to see if the item already exists
+    let itemPos = state.cart.map(i=>i.id).indexOf(data[0])
+    let idExists = itemPos === -1 ? false : true;
+
+    if (idExists) {
+      // if it does, see if the other attrubutes match
+      let sizeSame = data[2] === state.cart[itemPos].size;
+      let colorSame = data[3] === state.cart[itemPos].color;
+      if (sizeSame && colorSame) {
+        // if everything matches, increase the quantity
+        state.cart[itemPos].quantity++;
+        return
+      }
+    }
+
+    // with any condition, it's new, and we should add it to the cart
+    state.cart.push({
+      id: data[0],
+      name: data[1],
+      size: data[2],
+      color: data[3],
+      quantity: 1
+    });
+  },
+
+  removeFromCart(state, cartIndex) {
+    state.cart = removeArrayIndex(state.cart, cartIndex);
   },
 
   filterProducts(state, ids) {

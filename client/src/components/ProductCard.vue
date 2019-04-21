@@ -72,6 +72,7 @@
               ></color-selector>
             </div>
             <v-btn
+              @click="addToCart(product.product_id, product.name)"
               v-if="selectedColor && selectedSize"
               outline
               color="white"
@@ -96,7 +97,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
+import { copyObj } from '../helpers';
 import AttributeSelector from './AttributeSelector';
 import ColorSelector from './ColorSelector';
 
@@ -110,8 +112,8 @@ export default {
   },
   data: () => ({
     clicked: false,
-    selectedColor: null,
-    selectedSize: null
+    selectedSize: null,
+    selectedColor: null
   }),
   computed: {
     ...mapState({
@@ -127,6 +129,18 @@ export default {
     selectColor(colorName) {
       this.selectedColor = colorName;
     },
+    addToCart(productID, productName) {
+      this.pushToCart([
+          productID,
+          productName,
+          this.selectedSize,
+          this.selectedColor
+        ]
+      );
+    },
+    ...mapMutations([
+      'pushToCart'
+    ]),
     ...mapActions([
       'getProductAttributes'
     ])
