@@ -24,3 +24,15 @@ export async function fetchMultiple(endpoints) {
 
 // createFilter creates an unselected filter from an array of objects 
 export const createFilter = (items) => ({items, selectedIndex: -1});
+
+export const colorMap = {
+  White: "#fff",
+  Black: "#000",
+  Red: "#d00",
+  Orange: "#ffa500",
+  Yellow: "#ff0",
+  Green: "#0c0",
+  Blue: "#00f",
+  Indigo: "#4b0082",
+  Purple: "#800080"
+};

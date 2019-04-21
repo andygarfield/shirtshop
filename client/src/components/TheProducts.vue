@@ -8,7 +8,7 @@
     ></v-pagination>
     <v-layout wrap>
       <v-flex
-        xs12 sm6 md4 pa-4
+        xs12 sm6 md4 pa-3
         v-for="p in productsInView"
         :key="p.product_id"
       >

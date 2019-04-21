@@ -1,6 +1,7 @@
 <template>
   <v-hover>
     <v-card
+      @mouseover="getProductAttributes(product.product_id)"
       slot-scope="{ hover }"
       class="mx-auto"
       color="grey lighten-4"
@@ -42,10 +43,47 @@
             <p class="headline font-weight-black white--text">
               {{ product.name }}
             </p>
+            <p
+              class="align-center headline font-weight-black"
+              style="color: #FFCDD2"
+            >
+              {{
+                product.discounted_price != 0
+                  ? product.discounted_price
+                  : product.price | toCurrency
+              }}
+            </p>
+            <div class="text-xs-center">
+              <attribute-selector
+                header="Size"
+                headerColor="white"
+                @attributeSelected="selectSize"
+                :attributes="currentSizes"
+                :small="true"
+              ></attribute-selector>
+            </div>
+            <div>
+              <color-selector
+                header="Color"
+                headerColor="white"
+                :colors="currentColors"
+                @colorSelected="selectColor"
+                :small="true"
+              ></color-selector>
+            </div>
+            <v-btn
+              v-if="selectedColor && selectedSize"
+              outline
+              color="white"
+              small
+            >
+              Add to Cart
+            </v-btn>
             <router-link class="router-button" :to="'/product/' + product.product_id">
               <v-btn
                 outline
                 color="white"
+                small
               >
                 View Details
               </v-btn>
@@ -58,10 +96,41 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+import AttributeSelector from './AttributeSelector';
+import ColorSelector from './ColorSelector';
+
 export default {
   props: [
     'product'
   ],
+  components: {
+    AttributeSelector,
+    ColorSelector
+  },
+  data: () => ({
+    clicked: false,
+    selectedColor: null,
+    selectedSize: null
+  }),
+  computed: {
+    ...mapState({
+      currentSizes: 'currentSizes',
+      currentColors: 'currentColors',
+    })
+  },
+  methods: {
+    toggleClicked() {this.clicked = !this.clicked},
+    selectSize(sizeName) {
+      this.selectedSize = sizeName;
+    },
+    selectColor(colorName) {
+      this.selectedColor = colorName;
+    },
+    ...mapActions([
+      'getProductAttributes'
+    ])
+  },
   filters: {
     toCurrency: function(value) {
       if (typeof value !== "number") {
@@ -75,7 +144,6 @@ export default {
       return formatter.format(value);
     }
   }
-
 }
 </script>
 

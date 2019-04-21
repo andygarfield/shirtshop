@@ -44,9 +44,6 @@ export default {
       departments: 'departments',
       categories: 'categories'
     })
-  },
-  data () {
-    return {};
   }
 }
 </script>
