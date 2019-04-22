@@ -6,9 +6,11 @@ cp -r ./turing-fullstack/Images/product_images ./server/public
 
 # build client code and move to server dir
 cd ./client
+npm install
 npm run build
 cp ./dist/* ../server/public
 
 # build server container
-cd $basedir
-docker build -t shirtshop ./server
+cd $basedir/server
+npm install
+docker build -t shirtshop .
