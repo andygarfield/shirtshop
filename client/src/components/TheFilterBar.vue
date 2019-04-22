@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import FilterType from './FilterType';
 import TheSideCart from './TheSideCart';
 

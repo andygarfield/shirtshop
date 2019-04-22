@@ -22,7 +22,7 @@
             </v-layout>
           </v-flex>
           <v-flex xs12 sm8 pa-1>
-            <v-btn outline small @click="goBack">Go back</v-btn>
+            <back-button></back-button>
             <v-card-text class="display-2">{{ product.name }}</v-card-text>
             <v-card-text>{{ product.description }}</v-card-text>
             <v-layout>
@@ -58,12 +58,13 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex';
 import AttributeSelector from './AttributeSelector';
+import BackButton from './BackButton';
 import ColorSelector from './ColorSelector';
-import { routerGoBack } from '../helpers';
 
 export default {
   components: {
     AttributeSelector,
+    BackButton,
     ColorSelector
   },
   data: () => ({
@@ -96,7 +97,6 @@ export default {
     selectColor(colorName) {
       this.selectedColor = colorName;
     },
-    goBack: routerGoBack,
     addToCart(productID, productName) {
       this.pushToCart([
         productID,

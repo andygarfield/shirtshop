@@ -37,7 +37,6 @@
 
 <script>
 import { colorMap } from '../helpers'
-import { mapActions } from 'vuex';
 
 export default {
   props: [

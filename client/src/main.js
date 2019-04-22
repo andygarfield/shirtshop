@@ -9,7 +9,9 @@ import state from './store/state';
 import getters from './store/getters';
 import mutations from './store/mutations';
 import actions from './store/actions';
+import AuthPlugin from './plugins/auth';
 
+Vue.use(AuthPlugin);
 Vue.use(Vuetify);
 Vue.use(Vuex);
 

@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import auth from "./auth/authService";
 import Home from './views/Home'
 import ProductDetails from './components/ProductDetails';
 import TheCartViewer from './components/TheCartViewer';
+import Callback from './components/Callback';
+import Profile from './components/Profile';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -17,13 +21,23 @@ export default new Router({
       path: '/product/:id',
       name: 'product',
       component: ProductDetails
-      //component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
       path: '/cart',
       name: 'cart',
       component: TheCartViewer
-      //component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+      path: '/callback',
+      name: 'callback',
+      component: Callback
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile
     }
   ]
-})
+});
+
+export default router;
