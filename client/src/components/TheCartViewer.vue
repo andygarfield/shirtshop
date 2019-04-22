@@ -34,9 +34,13 @@
         <h6 class="title mt-3">Total</h6>
         <p class="mt-3">{{ subtotal | toCurrency }} </p>
         <PayPal
+          @payment-completed="completeTransaction"
           :amount="subtotal.toFixed(2)"
           currency="USD"
-          :client="credentials">
+          :client="credentials"
+          :items="sendingItems"
+          env="sandbox"
+        >
         </PayPal> 
       </v-card>
     </v-flex>
@@ -60,6 +64,24 @@ export default {
     }
   }),
   computed: {
+    sendingItems() {
+      let items = [];
+      this.cart.forEach(i => {
+        items.push({
+          sku: i.id,
+          name: i.name,
+          description: JSON.stringify({
+            size: i.size,
+            color: i.color
+          }),
+          quantity: i.quantity,
+          price: i.price.toFixed(2),
+          currency: 'USD',
+        })
+      })
+
+      return items;
+    },
     ...mapState({
       cart: 'cart'
     }),
@@ -68,6 +90,49 @@ export default {
     ])
   },
   methods: {
+    async completeTransaction(payRes) {
+      let order = {
+        total_amount: Number.parseFloat(payRes.transactions[0].amount.total),
+        created_on: payRes.create_time,
+        comments: payRes.state,
+        auth_code: payRes.id,
+        reference: payRes.cart
+      }
+
+      let orderRes = await fetch(
+        '/api/orders',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(order)
+        }
+      ).then(res => res.json());
+      let detail_promises = payRes.transactions[0].item_list.items.map(i => {
+        let detail = {
+          order_id: orderRes.order_id,
+          product_id: Number.parseInt(i.sku),
+          attributes: i.description,
+          product_name: i.name,
+          quantity: i.quantity,
+          unit_cost: Number.parseFloat(i.price)
+        }
+        return fetch(
+          '/api/order-detail',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(detail)
+          }
+        );
+      })
+
+      await Promise.all(detail_promises);
+      this.$router.push('/success');
+    },
     goBack: routerGoBack,
     ...mapMutations([
       'removeFromCart'

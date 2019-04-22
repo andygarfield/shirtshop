@@ -6,6 +6,7 @@ import ProductDetails from './components/ProductDetails';
 import TheCartViewer from './components/TheCartViewer';
 import Callback from './components/Callback';
 import Profile from './components/Profile';
+import Success from './components/Success';
 
 Vue.use(Router);
 
@@ -36,6 +37,11 @@ const router = new Router({
       path: "/profile",
       name: "profile",
       component: Profile
+    },
+    {
+      path: "/success",
+      name: "success",
+      component: Success
     }
   ]
 });

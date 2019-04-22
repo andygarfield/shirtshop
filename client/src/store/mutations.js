@@ -50,6 +50,10 @@ export default {
   removeFromCart(state, cartIndex) {
     state.cart = removeArrayIndex(state.cart, cartIndex);
   },
+  
+  clearCart(state) {
+    state.cart = [];
+  },
 
   filterProducts(state, ids) {
     let products = JSON.parse(sessionStorage.getItem('/api/products'));
