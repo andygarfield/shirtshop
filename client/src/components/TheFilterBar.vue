@@ -1,27 +1,20 @@
 <template>
-  <v-flex hidden-sm-and-down md3>
+  <v-flex hidden-sm-and-down md3 pr-3>
     <v-card
-      class="d-inline-block elevation-3"
     >
-      <v-navigation-drawer
-        floating
-        stateless
-        value="true"
+      <filter-type
+        title="Departments"
+        :filter="departments"
+        action="getProductsByDepartment"
       >
-        <filter-type
-          title="Departments"
-          :filter="departments"
-          action="getProductsByDepartment"
-        >
-        </filter-type>
-        <filter-type
-          title="Categories"
-          :filter="categories"
-          action="getProductsByCategory"
-        >
-        </filter-type>
-        <the-side-cart></the-side-cart>
-      </v-navigation-drawer>
+      </filter-type>
+      <filter-type
+        title="Categories"
+        :filter="categories"
+        action="getProductsByCategory"
+      >
+      </filter-type>
+      <the-side-cart></the-side-cart>
     </v-card>
   </v-flex>
 </template>

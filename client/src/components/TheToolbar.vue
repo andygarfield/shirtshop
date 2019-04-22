@@ -10,12 +10,14 @@
       <template v-slot:badge>
         <span>{{ cartCount }}</span>
       </template>
-      <v-icon
-        large
-        color="grey lighten-1"
-      >
-        shopping_cart
-      </v-icon>
+      <router-link to="/cart">
+        <v-icon
+          large
+          color="grey lighten-1"
+        >
+          shopping_cart
+        </v-icon>
+      </router-link>
     </v-badge>
   </v-toolbar>
 </template>

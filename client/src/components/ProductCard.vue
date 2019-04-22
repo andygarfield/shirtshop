@@ -26,11 +26,18 @@
           }}
         </p>
         <p
-          v-if="product.discounted_price != 0"
           class="subheading text-xs-center"
         >
-          <span class="red--text">
+          <span
+            class="red--text"
+            v-if="product.discounted_price !== 0"
+          >
             <s>{{ product.price | toCurrency }}</s>
+          </span>
+          <span 
+            v-if="product.discounted_price === 0"
+          >
+
           </span>
         </p>
       </v-card-text>
@@ -98,7 +105,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex';
-import { copyObj } from '../helpers';
+import { copyObj, toCurrency } from '../helpers';
 import AttributeSelector from './AttributeSelector';
 import ColorSelector from './ColorSelector';
 
@@ -116,6 +123,11 @@ export default {
     selectedColor: null
   }),
   computed: {
+    actualPrice() {
+      return this.product.discounted_price !== 0
+        ? this.product.discounted_price
+        : this.product.price
+    },
     ...mapState({
       currentSizes: 'currentSizes',
       currentColors: 'currentColors',
@@ -131,12 +143,12 @@ export default {
     },
     addToCart(productID, productName) {
       this.pushToCart([
-          productID,
-          productName,
-          this.selectedSize,
-          this.selectedColor
-        ]
-      );
+        productID,
+        productName,
+        this.selectedSize,
+        this.selectedColor,
+        this.actualPrice
+      ]);
     },
     ...mapMutations([
       'pushToCart'
@@ -146,17 +158,7 @@ export default {
     ])
   },
   filters: {
-    toCurrency: function(value) {
-      if (typeof value !== "number") {
-          return value;
-      }
-      var formatter = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
-          minimumFractionDigits: 2
-      });
-      return formatter.format(value);
-    }
+    toCurrency: toCurrency
   }
 }
 </script>

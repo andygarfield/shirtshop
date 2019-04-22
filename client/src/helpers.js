@@ -34,6 +34,24 @@ export const removeArrayIndex = (arr, index) => {
   });
 }
 
+export const toCurrency = value => {
+  if (typeof value !== "number") {
+      return value;
+  }
+  var formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+  });
+  return formatter.format(value);
+}
+
+export const routerGoBack = function() {
+  window.history.length > 1
+    ? this.$router.go(-1)
+    : this.$router.push('/')
+}
+
 export const colorMap = {
   White: "#fff",
   Black: "#000",

@@ -15,15 +15,15 @@ export default {
 
   pushToCart(state, data) {
     // check to see if the item already exists
-    let matchPositions = [];
+    let possibleMatches = [];
     state.cart.forEach((item, i) => {
       if (item.id === data[0]) {
-        matchPositions.push(i);
+        possibleMatches.push(i);
       }
     })
 
     let foundMatch = false;
-    matchPositions.forEach(i => {
+    possibleMatches.forEach(i => {
       // loop through the matches and see if the the other attributes match
       let sizeSame = data[2] === state.cart[i].size;
       let colorSame = data[3] === state.cart[i].color;
@@ -41,6 +41,7 @@ export default {
         name: data[1],
         size: data[2],
         color: data[3],
+        price: data[4],
         quantity: 1
       });
     }

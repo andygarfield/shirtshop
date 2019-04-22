@@ -88,6 +88,7 @@ export default {
     commit('filterProducts', res[0].map(i => i.product_id));
   },
 
+  // getProductAttributes fetches a product's attributes from the API server
   async getProductAttributes({commit}, productID) {
     let attributes = await fetchOne(
       `/api/products/attributes/${productID}`

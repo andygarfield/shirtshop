@@ -15,5 +15,14 @@ export default {
     let totalCount = 0;
     state.cart.forEach(i => {totalCount += i.quantity});
     return totalCount
+  },
+
+  subtotal(state) {
+    let st = 0;
+    state.cart.forEach(i => {
+      st += i.price * i.quantity
+    })
+
+    return st;
   }
 }

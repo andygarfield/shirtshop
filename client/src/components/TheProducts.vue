@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 md9 class="text-xs-center">
+  <v-flex sm12 md9 class="text-xs-center">
     <v-pagination
       v-if="pageCount > 1"
       v-model="page"
@@ -8,7 +8,7 @@
     ></v-pagination>
     <v-layout wrap>
       <v-flex
-        xs12 sm6 md4 pa-3
+        xs12 sm6 md6 lg4 pa-3
         v-for="p in productsInView"
         :key="p.product_id"
       >
