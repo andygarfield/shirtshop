@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ProductView from './components/ProductView';
+import TheProductView from './components/TheProductView';
 import ProductDetails from './components/ProductDetails';
 import TheCartViewer from './components/TheCartViewer';
 import Callback from './components/Callback';
@@ -16,7 +16,7 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: ProductView
+      component: TheProductView
     },
 
     // the individual product pages
