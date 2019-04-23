@@ -12,31 +12,42 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   routes: [
+    // the root path of the app showing the products
     {
       path: '/',
       name: 'home',
       component: ProductView
     },
+
+    // the individual product pages
     {
       path: '/product/:id',
       name: 'product',
       component: ProductDetails
     },
+
+    // the currect shopping cart
     {
       path: '/cart',
       name: 'cart',
       component: TheCartViewer
     },
+
+    // the callback page for Auth0 login
     {
       path: '/callback',
       name: 'callback',
       component: Callback
     },
+
+    // the profile page for the logged in user
     {
       path: "/profile",
       name: "profile",
       component: Profile
     },
+
+    // the landing page after an order is complete
     {
       path: "/success",
       name: "success",
