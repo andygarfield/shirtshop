@@ -10,5 +10,5 @@ Clone the git repository and run the `build.sh` script.
 
 # Running
 ```bash
-docker-compose up -f docker-compose.prod.yml
+docker-compose -f docker-compose.prod.yml up
 ```
