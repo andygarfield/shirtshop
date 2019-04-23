@@ -18,7 +18,7 @@ sh build.sh
 A couple settings that need to be set for production
 1. Change the `MYSQL_PASSWORD` environemnt variable inside `./docker-compose.prod.yml` to a better password
 2. Change the password inside `./server/src/datasources/mysql.datasource.json` to match
-3. Get rid of `env="sandbox"` in the PayPal component in the `./client/src/components/TheCartViewer.vue` file to make take PayPal out of sandbox mode.
+3. Get rid of `env="sandbox"` in the PayPal component in the `./client/src/components/TheCartViewer.vue` file to take PayPal out of sandbox mode.
 
 Docker Compose will then run the production stack all at once
 ```bash
