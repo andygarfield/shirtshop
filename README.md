@@ -43,7 +43,7 @@ cd client
 npm run serve
 ```
 
-## Architechture
+## Architecture
 ### Frontend
 The client-side is built with Vue + Vuetify. State is managed with the Vuex extension. When the app is first loaded, all of the products are fetched from the `/api/products` endpoint. The page filters are also fetched from the `/api/departments` and `/api/categories` endpoints. Each API call is saved in SessionStorage in such a way that each subsequent request for that resource is pulled from cache. A page refresh clears all the cached API calls.
 
