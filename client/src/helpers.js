@@ -28,12 +28,14 @@ export const createFilter = (items) => ({items, selectedIndex: -1});
 // copyObj copies an object
 export const copyObj = (obj) => JSON.parse(JSON.stringify(obj));
 
+// removeArrayIndex removes the specified index in the input array
 export const removeArrayIndex = (arr, index) => {
   return arr.filter((el, i) => {
       return i != index;
   });
 }
 
+// toCurrency can be used as a Vue filter to change a number to currency in the view
 export const toCurrency = value => {
   if (typeof value !== "number") {
       return value;
@@ -46,12 +48,14 @@ export const toCurrency = value => {
   return formatter.format(value);
 }
 
+// go back one page in Vue router
 export const routerGoBack = function() {
   window.history.length > 1
     ? this.$router.go(-1)
     : this.$router.push('/')
 }
 
+// colorMap is for the color picker popup
 export const colorMap = {
   White: "#fff",
   Black: "#000",
