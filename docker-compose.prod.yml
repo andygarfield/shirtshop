@@ -18,7 +18,5 @@ services:
     image: shirtshop
     restart: always
     ports:
-      - "3000:3000"
-    environment:
-      PORT: 80
+      - "80:3000"
 
