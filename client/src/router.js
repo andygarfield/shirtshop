@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import TheProductsView from './components/TheProductView';
+import TheProductsView from './components/TheProductsView';
 import ProductDetails from './components/ProductDetails';
 import TheCartViewer from './components/TheCartViewer';
 import Callback from './components/Callback';
