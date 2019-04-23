@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import auth from "./auth/authService";
-import Home from './views/Home'
+import ProductView from './components/ProductView';
 import ProductDetails from './components/ProductDetails';
 import TheCartViewer from './components/TheCartViewer';
 import Callback from './components/Callback';
@@ -16,7 +15,7 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: ProductView
     },
     {
       path: '/product/:id',
