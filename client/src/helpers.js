@@ -1,7 +1,7 @@
 // fetchOne fetches data from and endpoint string
 // and caches the result in sessionStorage
 export async function fetchOne(endpoint) {
-  // check local storage to see if the result is cached
+  // check session storage to see if the result is cached
   let cachedData = sessionStorage.getItem(endpoint)
   if (cachedData) {
     return Promise.resolve(JSON.parse(cachedData));

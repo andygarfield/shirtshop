@@ -8,7 +8,7 @@
     max-width="600"
   >
     <v-img
-      :src="'/product_images/' + product.image"
+      :src="require('../../public/product_images/' + product.image)"
     >
     </v-img>
     <v-card-text
@@ -66,16 +66,13 @@
               headerColor="white"
               @attributeSelected="selectSize"
               :attributes="currentSizes"
-              :small="true"
+              small
             ></attribute-selector>
           </div>
           <div>
             <color-selector
-              header="Color"
-              headerColor="white"
               :colors="currentColors"
               @colorSelected="selectColor"
-              :small="true"
             ></color-selector>
           </div>
           <v-btn

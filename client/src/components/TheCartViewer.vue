@@ -8,15 +8,26 @@
       <div class="headline" v-if="cart.length === 0">Your cart is empty</div>
       <div v-for="(item, index) in cart" :key="index" class="mt-4">
         <v-layout>
-          <v-flex xs6>
+          <v-flex xs8>
             <p class="title font-weight-light ma-1">{{ item.name }}</p>
             <p class="ma-1">{{ item.quantity }} @ {{ item.price }}</p>
             <p class="font-weight-bold ma-1">
               {{ item.price * item.quantity | toCurrency }}
             </p>
+            <p class="ma-1">
+              <span style="font-weight: bold;">Size: </span>
+              {{ item.size }}
+            </p>
+            <p class="ma-1">
+              <span style="font-weight: bold;">Color: </span>
+              {{ item.color }}
+            </p>
           </v-flex>
-          <v-flex xs6>
-            <v-btn flat color="error" @click="removeFromCart(index)">Remove</v-btn>
+          <v-flex xs4 style="display: flex; justify-content: center; align-items: center;">
+            <v-btn
+              flat color="error"
+              @click="removeFromCart(index)"
+            >Remove</v-btn>
           </v-flex>
         </v-layout>
       </div>

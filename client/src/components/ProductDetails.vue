@@ -7,14 +7,16 @@
           <v-flex xs12 sm4 pa-1>
             <v-layout row wrap>
               <v-flex xs12 pa-3>
-                <v-img :src="'/product_images/' + product.image"></v-img>
+                <v-img
+                  :src="require('../../public/product_images/' + product.image)"
+                ></v-img>
               </v-flex>
               <v-flex xs4 pa-3>
                 <div pa-2 class="thumbnail-background" v-if="imageSelected === 1">
                 <div>
                   <v-img
                     @click="imageSelected = 1"
-                    :src="'/product_images/' + product.image_2"
+                    :src="require('../../public/product_images/' + product.image_2)"
                   ></v-img>
                 </div>
                 </div>
@@ -34,12 +36,12 @@
               </attribute-selector>
             </v-layout>
             <v-layout>
-              <color-selector
+              <attribute-selector
                 header="Color"
-                :colors="colors"         
-                @colorSelected="selectColor"
+                :attributes="colors"         
+                @attributeSelected="selectColor"
               >
-              </color-selector>
+              </attribute-selector>
             </v-layout>
             <div class="pt-4">
               <v-btn
@@ -76,7 +78,7 @@ export default {
     productID() {return this.$route.params.id},
     cardEnabled() {return this.selectedSize && this.selectedColor ? true : false},
     actualPrice() {
-      return this.product.discounted_price === 0
+      return this.product.discounted_price !== 0
         ? this.product.discounted_price
         : this.product.price
     },

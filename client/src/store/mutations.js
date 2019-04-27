@@ -16,6 +16,7 @@ export default {
       }
     })
 
+    let matchFound = false;
     if (possibleMatches.length > 0) {
       possibleMatches.forEach(i => {
         // loop through the matches and see if the the other attributes match
@@ -24,10 +25,12 @@ export default {
         if (sizeSame && colorSame) {
           // if everything matches, increase the quantity
           state.cart[i].quantity++;
+          matchFound = true;
         }
       })
-    } else {
+    }
     // with any other condition, it's new, and we should add it to the cart
+    if (!matchFound) {
       state.cart.push({
         id: data[0],
         name: data[1],

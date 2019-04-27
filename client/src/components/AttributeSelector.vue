@@ -41,12 +41,12 @@
 
 <script>
 export default {
-  props: [
-    'header',
-    'headerColor',
-    'attributes',
-    'small'
-  ],
+  props: {
+    'header': String,
+    'headerColor': String,
+    'attributes': Array,
+    'small': Boolean
+  },
   data: () => ({
     selectedID: -1,
     selectedName: ""

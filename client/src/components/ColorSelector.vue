@@ -1,37 +1,19 @@
 <template>
-<div 
-  :class="headerColor + '--text subheading'"
+<div
+  class="white--text subheading selector"
 >
-  <div
-    class="headline"
-  >
-    {{ header }}{{ ':  ' + selectedName }}
+  <div>
+  Color: {{ selectedName }}
   </div>
-  <div
-    v-if="!small"
+  <v-btn
+    v-for="c of colors"
+    :ripple="false"
+    fab small :color="colorMap[c.attribute_value]"
+    :key="c.attribute_value_id"
+    @click="selectColor(c.attribute_value_id, c.attribute_value)"
+    :class="selectedID === c.attribute_value_id ? '': 'small-button'"
   >
-    <v-btn
-      v-for="c of colors"
-      :key="c.attribute_value_id"
-      @click="selectColor(c.attribute_value_id, c.attribute_value)"
-      :class="selectedID === c.attribute_value_id ? 'info' : ''"
-    >
-      {{ c.attribute_value }}
-    </v-btn>
-  </div>
-  <div
-    v-if="small"
-  >
-    <v-btn
-      fab small :color="colorMap[c.attribute_value]"
-      :ripple="false"
-      v-for="c of colors"
-      :key="c.attribute_value_id"
-      @click="selectColor(c.attribute_value_id, c.attribute_value)"
-      :class="selectedID === c.attribute_value_id ? '': 'small-button'"
-    >
-    </v-btn>
-  </div>
+  </v-btn>
 </div>
 </template>
 
@@ -39,12 +21,11 @@
 import { colorMap } from '../helpers'
 
 export default {
-  props: [
-    'header',
-    'headerColor',
-    'colors',
-    'small'
-  ],
+  props: {
+    'header': String,
+    'headerColor': String,
+    'colors': Array
+  },
   data: () => ({
     selectedID: -1,
     selectedName: '', 
@@ -61,6 +42,8 @@ export default {
 </script>
 
 <style scoped>
+.selector { margin-bottom: 10px;}
+
 .small-button {
   height: 25px;
   width: 25px;
