@@ -40,33 +40,33 @@
 </template>
 
 <script>
-  export default {
-    props: [
-      'header',
-      'headerColor',
-      'attributes',
-      'small'
-    ],
-    data: () => ({
-      selectedID: -1,
-      selectedName: ""
-    }),
-    methods: {
-      selectAttribute(attID, attName) {
-        this.selectedID = attID;
-        this.selectedName = attName;
-        this.$emit('attributeSelected', attName);
-      }
+export default {
+  props: [
+    'header',
+    'headerColor',
+    'attributes',
+    'small'
+  ],
+  data: () => ({
+    selectedID: -1,
+    selectedName: ""
+  }),
+  methods: {
+    selectAttribute(attID, attName) {
+      this.selectedID = attID;
+      this.selectedName = attName;
+      this.$emit('attributeSelected', attName);
     }
   }
+}
 </script>
 
 <style scoped>
-  .selector { margin-bottom: 10px;}
+.selector { margin-bottom: 10px;}
 
-  .small-button {
-    height: 35px;
-    width: 35px;
-    margin: 6px;
-  }
+.small-button {
+  height: 35px;
+  width: 35px;
+  margin: 6px;
+}
 </style>

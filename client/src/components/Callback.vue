@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <p>Loading...</p>
-  </div>
+<div>
+  <p>Loading...</p>
+</div>
 </template>
 
 <script>

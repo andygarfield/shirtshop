@@ -1,10 +1,10 @@
 <template>
-  <v-app>
-    <the-toolbar></the-toolbar>
-    <v-content>
-      <router-view></router-view>
-    </v-content>
-  </v-app>
+<v-app>
+  <the-toolbar></the-toolbar>
+  <v-content>
+    <router-view></router-view>
+  </v-content>
+</v-app>
 </template>
 
 <script>

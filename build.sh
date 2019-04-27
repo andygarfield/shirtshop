@@ -2,7 +2,7 @@ basedir=$PWD
 
 # clone Turing repo and copy product images
 git clone https://github.com/zandoan/turing-fullstack.git
-cp -R ./turing-fullstack/Images/product_images ./server/public
+cp -R ./turing-fullstack/Images/product_images ./client/public
 
 # build client code and move to server dir
 cd ./client

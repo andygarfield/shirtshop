@@ -1,18 +1,18 @@
 <template>
-  <span>
-    <v-btn
-      v-if="!loggedIn"
-      color="info"
-      target="_blank"
-      @click="login"
-    >
-      <span class="mr-2" small>Log In / Sign Up</span>
-    </v-btn>
-    <the-profile-menu
-      v-if="loggedIn"
-    >
-    </the-profile-menu>
-  </span>
+<span>
+  <v-btn
+    v-if="!loggedIn"
+    color="info"
+    target="_blank"
+    @click="login"
+  >
+    <span class="mr-2" small>Log In / Sign Up</span>
+  </v-btn>
+  <the-profile-menu
+    v-if="loggedIn"
+  >
+  </the-profile-menu>
+</span>
 </template>
 
 <script>

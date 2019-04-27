@@ -1,12 +1,12 @@
 <template>
-  <v-container fluid>
-    <v-layout
-      wrap
-    >
-      <the-filter-bar></the-filter-bar>
-      <the-products></the-products>
-    </v-layout>
-  </v-container> 
+<v-container fluid>
+  <v-layout
+    wrap
+  >
+    <the-filter-bar></the-filter-bar>
+    <the-products></the-products>
+  </v-layout>
+</v-container> 
 </template>
 
 <script>
