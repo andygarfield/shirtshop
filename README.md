@@ -53,18 +53,18 @@ The server-side API layer is built with Loopback 4 while the other server routin
 ### Directory structure
 ```
 .
-├───client                     # The front-end source directory
-│   ├───public                 # Static source files including `index.html`
-│   └───src                    # Main front-end source directory
-│       ├───auth               # Auth0 service for handing authentication
-│       ├───components         # Various Vue components used in rendering the page
-│       ├───plugins            # Plugins for Vue
-│       └───store              # Vuex functions used in managing app state
-└───server                     # Back-end source directory
-    ├───public                 # Static assets directory where the built front-end is served from
-    └───src                    # Main server source directory
-        ├───controllers        # Loopback controllers
-        ├───datasources        # Loopback data sources
-        ├───models             # Loopback models
-        └───repositories       # Loopback repositories
+├───client                       The front-end source directory
+│   ├───public                   Static source files including `index.html`
+│   └───src                      Main front-end source directory
+│       ├───auth                 Auth0 service for handing authentication
+│       ├───components           Various Vue components used in rendering the page
+│       ├───plugins              Plugins for Vue
+│       └───store                Vuex functions used in managing app state
+└───server                       Back-end source directory
+    ├───public                   Static assets directory where the built front-end is served from
+    └───src                      Main server source directory
+        ├───controllers          Loopback controllers
+        ├───datasources          Loopback data sources
+        ├───models               Loopback models
+        └───repositories         Loopback repositories
 ```
