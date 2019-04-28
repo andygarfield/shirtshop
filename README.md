@@ -28,7 +28,7 @@ docker-compose -f docker-compose.prod.yml up
 ```
 
 ### Development
-You need to change the host in the `./server/src/datasources/mysql.datasource.json` file to `localhost`. While developing, you start the database, the back-end server, and the front-end server seperately. The Vue server is hot-reloading so you can see front-end changes immediately.
+You need to change the host in the `./server/src/datasources/mysql.datasource.json` file to `localhost`. While developing, you start the database, the back-end server, and the front-end server separately. The Vue server is hot-reloading so you can see front-end changes immediately.
 ```bash
 docker-compose -f docker-compose.dev.yml up
 ```
