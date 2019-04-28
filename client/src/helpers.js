@@ -22,6 +22,9 @@ export async function fetchMultiple(endpoints) {
   return Promise.resolve(responses);
 }
 
+// storeCart saves the cart to localStorage
+export const storeCart = (cart) => {localStorage.setItem('cart' ,JSON.stringify(cart))}
+
 // createFilter creates an unselected filter from an array of objects 
 export const createFilter = (items) => ({items, selectedIndex: -1});
 

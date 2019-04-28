@@ -2,13 +2,15 @@ import { fetchOne, fetchMultiple } from '../helpers';
 
 export default {
   // init runs a number of tasks on app initialization. It gets the products
-  // and filters and fills the product lookup.
+  // and filters, fills the product lookup, and fetches the previous cart, if
+  // it exists
   async init({commit, dispatch}) {
     await Promise.all([
       dispatch('getProducts'),
       dispatch('getFilters')
     ])
     commit('fillProductLookup');
+    commit('getCartFromLocalStorage');
   },
 
   // getProducts fetches all the product data

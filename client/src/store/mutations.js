@@ -1,4 +1,4 @@
-import { createFilter, removeArrayIndex } from '../helpers';
+import { createFilter, removeArrayIndex, storeCart } from '../helpers';
 
 export default {
   // should only be run at app initialization
@@ -40,6 +40,8 @@ export default {
         quantity: 1
       });
     }
+
+    storeCart(state.cart);
   },
 
   // filterProducts takes ids and only stores matching ids in state.products
@@ -100,12 +102,18 @@ export default {
     state.page = page;
   },
 
+  getCartFromLocalStorage(state) {
+    state.cart = JSON.parse(localStorage.getItem('cart'));
+  },
+
   removeFromCart(state, cartIndex) {
     state.cart = removeArrayIndex(state.cart, cartIndex);
+    storeCart(state.cart);
   },
   
   clearCart(state) {
     state.cart = [];
+    storeCart(state.cart);
   },
 
   setCurrentProduct(state, product) {
