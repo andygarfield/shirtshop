@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
 import * as path from 'path';
 import * as express from 'express';
+import * as compression from 'compression';
 import pEvent from 'p-event';
 import { Shirtshop } from './application';
 import { ApplicationConfig } from '@loopback/core';
@@ -13,6 +13,9 @@ export class ExpressServer {
   constructor(options: ApplicationConfig = {}) {
     this.app = express();
     this.lbApp = new Shirtshop(options);
+
+    // gzip compression
+    this.app.use(compression())
 
     const staticFileMiddleware = express.static('public');
 
