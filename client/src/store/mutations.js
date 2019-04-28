@@ -103,7 +103,10 @@ export default {
   },
 
   getCartFromLocalStorage(state) {
-    state.cart = JSON.parse(localStorage.getItem('cart'));
+    let c = localStorage.getItem('cart');
+    if (c) {
+      state.cart = JSON.parse(c);
+    }
   },
 
   removeFromCart(state, cartIndex) {
