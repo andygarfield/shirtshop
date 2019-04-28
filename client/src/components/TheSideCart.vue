@@ -14,25 +14,29 @@
     :key="index"
     flat
     color="grey lighten-3"
+    class="pa-3"
   >
-    <div class="pa-3" style="position: relative">
-      <v-card-text class="cart-text">
-        <span class="font-weight-black">
-          {{ item.quantity }}
-        </span>&times; {{ item.name }}
-      </v-card-text>
-      <v-card-text class="cart-text">Size: {{ item.size }}</v-card-text>
-      <v-card-text class="cart-text">Color: {{ item.color }}</v-card-text>
-      <v-btn
-        class="headline side-x"
-        small flat fab color="blue"
-        @click="removeFromCart(index)"
-      >
-        &times;
-      </v-btn>
-    </div>
-    <div>
-    </div>
+    <v-layout>
+      <v-flex xs8>
+        <v-card-text class="cart-text">
+          <span class="font-weight-black">
+            {{ item.quantity }}
+          </span>
+          &times; {{ item.name }}
+        </v-card-text>
+        <v-card-text class="cart-text">Size: {{ item.size }}</v-card-text>
+        <v-card-text class="cart-text">Color: {{ item.color }}</v-card-text>
+      </v-flex>
+      <v-flex xs4>
+        <v-btn
+          class="headline side-x"
+          small flat fab color="blue"
+          @click="removeFromCart(index)"
+        >
+          &times;
+        </v-btn>
+      </v-flex>
+    </v-layout>
   </v-card>
   <v-layout>
     <v-btn flat class="primary mt-2 mb-0" block

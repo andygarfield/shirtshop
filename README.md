@@ -33,7 +33,7 @@ You need to change the host in the `./server/src/datasources/mysql.datasource.js
 docker-compose -f docker-compose.dev.yml up
 ```
 In a different session
-```
+```bash
 cd server
 npm start
 ```

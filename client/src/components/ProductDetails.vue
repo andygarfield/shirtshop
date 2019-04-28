@@ -61,13 +61,11 @@
 import { mapState, mapMutations, mapActions } from 'vuex';
 import AttributeSelector from './AttributeSelector';
 import BackButton from './BackButton';
-import ColorSelector from './ColorSelector';
 
 export default {
   components: {
     AttributeSelector,
-    BackButton,
-    ColorSelector
+    BackButton
   },
   data: () => ({
     imageSelected: 1,
@@ -119,7 +117,7 @@ export default {
   created() {
   },
   watch:{
-    $route (to, from){
+    $route() {
       this.getProduct(this.productID);
       this.getProductAttributes(this.productID);
     }

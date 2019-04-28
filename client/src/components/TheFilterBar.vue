@@ -1,7 +1,6 @@
 <template>
 <v-flex hidden-sm-and-down md3 pr-3>
-  <v-card
-  >
+  <v-card>
     <filter-type
       title="Departments"
       :filter="departments"

@@ -10,9 +10,12 @@
         <v-layout>
           <v-flex xs8>
             <p class="title font-weight-light ma-1">{{ item.name }}</p>
-            <p class="ma-1">{{ item.quantity }} @ {{ item.price }}</p>
-            <p class="font-weight-bold ma-1">
-              {{ item.price * item.quantity | toCurrency }}
+            <p class="ma-1">
+              {{ item.quantity }} @ {{ item.price }}
+              <span style="margin: 5px;">-</span>
+              <span class="font-weight-bold">
+                {{ item.price * item.quantity | toCurrency }}
+              </span>
             </p>
             <p class="ma-1">
               <span style="font-weight: bold;">Size: </span>

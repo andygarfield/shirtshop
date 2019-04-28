@@ -4,6 +4,7 @@ import * as express from 'express';
 import pEvent from 'p-event';
 import { Shirtshop } from './application';
 import { ApplicationConfig } from '@loopback/core';
+import * as history from 'connect-history-api-fallback';
 
 export class ExpressServer {
   private app: express.Application;
@@ -13,16 +14,16 @@ export class ExpressServer {
     this.app = express();
     this.lbApp = new Shirtshop(options);
 
-    let serveIndex = function (_req: Request, res: Response) {
-      res.sendFile(path.resolve('public/index.html'));
-    }
-    this.app.get('/', serveIndex);
+    const staticFileMiddleware = express.static('public');
+
     this.app.use('/api', this.lbApp.requestHandler);
-    this.app.use(express.static('public'));
-    this.app.use((req: Request, res: Response) => {
-      res.redirect(301, '/');
-      req.url = '/'
-    });
+    this.app.use(staticFileMiddleware);
+    this.app.use(history());
+    this.app.use(staticFileMiddleware);
+
+    this.app.get('/', function (req, res) {
+      res.render(path.join(__dirname + '/index.html'))
+    })
   }
   async boot() {
     await this.lbApp.boot();

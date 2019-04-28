@@ -1,7 +1,7 @@
 {
   "name": "mysql",
   "connector": "mysql",
-  "host": "db",
+  "host": "localhost",
   "port": 3306,
   "user": "admin",
   "password": "shirtsnarkshark",

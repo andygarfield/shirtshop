@@ -12,5 +12,4 @@ cp -R ./dist/* ../server/public
 
 # build server container
 cd $basedir/server
-npm install
 docker build -t shirtshop .
