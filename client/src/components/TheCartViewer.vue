@@ -2,7 +2,7 @@
 <v-container>
   <v-layout wrap justify-center>
     <v-flex xs12 md9 class="pa-4">
-      <v-btn outline small @click="goBack">Go back</v-btn>
+      <home-button></home-button>
       <h3 class="display-2 mt-4">Your Cart</h3>
       <v-divider class="mb-4"></v-divider>
       <div class="headline" v-if="cart.length === 0">Your cart is empty</div>
@@ -65,10 +65,12 @@
 <script>
 import PayPal from 'vue-paypal-checkout';
 import { mapState, mapGetters, mapMutations } from 'vuex';
-import { toCurrency, routerGoBack } from '../helpers';
+import { toCurrency } from '../helpers';
+import HomeButton from './HomeButton';
 
 export default {
   components: {
+    HomeButton,
     PayPal
   },
   data: () => ({
@@ -147,7 +149,6 @@ export default {
       await Promise.all(detail_promises);
       this.$router.push('/success');
     },
-    goBack: routerGoBack,
     ...mapMutations([
       'removeFromCart'
     ])

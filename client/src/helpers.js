@@ -51,13 +51,6 @@ export const toCurrency = value => {
   return formatter.format(value);
 }
 
-// go back one page in Vue router
-export const routerGoBack = function() {
-  window.history.length > 1
-    ? this.$router.go(-1)
-    : this.$router.push('/')
-}
-
 // colorMap is for the color picker popup
 export const colorMap = {
   White: "#fff",

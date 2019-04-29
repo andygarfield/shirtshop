@@ -1,6 +1,6 @@
 <template>
 <div v-if="profile">
-  <back-button></back-button>
+  <home-button></home-button>
   <div>
     <div>
       <img :src="profile.picture">
@@ -17,10 +17,11 @@
 </template>
 
 <script>
-import BackButton from './BackButton';
+import HomeButton from './HomeButton';
 
 export default {
   components: {
+    HomeButton
   },
   data() {
     return {

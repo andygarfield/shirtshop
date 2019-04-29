@@ -9,7 +9,7 @@ import { mapMutations } from 'vuex';
 export default {
   methods: {
     handleLoginEvent(data) {
-      this.$router.push(data.state.target || "/");
+      this.$router.push(data.state.target || '/');
     }
   },
   computed: {

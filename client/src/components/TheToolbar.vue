@@ -1,8 +1,10 @@
 <template>
 <v-toolbar app>
   <v-img
+    id="logo"
     src="/tshirtshop.png"
     max-width="190px"
+    @click="goHome"
   ></v-img>
   <v-spacer></v-spacer>
   <toolbar-login class="mr-4"></toolbar-login>
@@ -34,6 +36,17 @@ export default {
     ...mapGetters({
       cartCount: 'cartCount'
     })
+  },
+  methods: {
+    goHome() {
+      this.$router.push('/');
+    }
   }
 }
 </script>
+
+<style scoped>
+#logo {
+  cursor: pointer;
+}
+</style>
