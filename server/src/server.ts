@@ -5,6 +5,7 @@ import pEvent from 'p-event';
 import { Shirtshop } from './application';
 import { ApplicationConfig } from '@loopback/core';
 import * as history from 'connect-history-api-fallback';
+const rateLimit = require("express-rate-limit");
 
 export class ExpressServer {
   private app: express.Application;
@@ -19,6 +20,12 @@ export class ExpressServer {
 
     const staticFileMiddleware = express.static('public');
 
+    const limiter = rateLimit({
+      windowMs: 250,
+      max: 3
+    });
+
+    this.app.use('/api', limiter);
     this.app.use('/api', this.lbApp.requestHandler);
     this.app.use(staticFileMiddleware);
     this.app.use(history());
