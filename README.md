@@ -1,8 +1,6 @@
 # ShirtShop
 A shopping app for a t-shirt business
 
-[View Live Demo](http://andygarfield.me/)
-
 ## Installation
 ### Dependencies
 On all systems, you'll need [Docker](https://www.docker.com) and [Node.js](https://nodejs.org).
