@@ -1,5 +1,5 @@
 # ShirtShop
-A shopping app for a t-shirt business
+A sample application I built in a couple weekends for [Turing](https://www.turing.com).
 
 ## Installation
 ### Dependencies
